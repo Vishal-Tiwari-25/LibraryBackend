@@ -2,11 +2,9 @@ package com.example.LibraryManagementSystem.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
+//@Getter
+//@Setter
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,4 +19,5 @@ public class Admin {
 
     @Column(name = "admin_password", nullable = false)
     private String adminPass;
+
 }

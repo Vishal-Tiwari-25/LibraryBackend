@@ -25,7 +25,12 @@ public class BookService {
             existingBook.setQuantity(existingBook.getQuantity() + book.getQuantity());
             return bookRepository.save(existingBook); // Updates the existing book
         } else {
-            return bookRepository.save(book); //Inserts a new book
+            System.out.println(book);
+            Book newbook=Book.builder()
+                    .authorName(book.getAuthorName()).bookTitle(book.getBookTitle())
+                    .genre(book.getGenre()).quantity(book.getQuantity()).edition("1").ratings(0.0F).totalRatingsCount(0L)
+                    .ratingsSum(0.0F).build();
+            return bookRepository.save(newbook); //Inserts a new book
         }
     }
     public List<Book> addBooks(List<Book> books) {
@@ -59,7 +64,9 @@ public class BookService {
 
     //All get methods, using different filter values
     public List<Book> getBooks(){
-        return bookRepository.findAll();
+        List<Book> viewbooks=bookRepository.findAll();;
+        //System.out.println(viewbooks);
+        return viewbooks;
     }
     public Optional<Book> getBookById(Long id){
         Optional<Book> book=bookRepository.findById(id);
@@ -87,5 +94,15 @@ public class BookService {
     }
     public List<Book> getBookByRatings(){
         return bookRepository.findAll(Sort.by(Sort.Direction.DESC,"ratings"));
+    }
+
+    public void deleteBookById(Long id) {
+        Optional<Book> deleteBook=bookRepository.findById(id);
+        if(deleteBook.isPresent()){
+            bookRepository.deleteById(id);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Book not found");
+        }
     }
 }

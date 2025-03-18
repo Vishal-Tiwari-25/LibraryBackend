@@ -59,5 +59,10 @@ public class BookController {
         bookService.updateBookRatings(id,newRatings);
         return ResponseEntity.ok("Updated Ratings Successfully!!");
     }
+    @DeleteMapping("/delete-book/by-Id/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable Long id){
+        bookService.deleteBookById(id);
+        return ResponseEntity.ok("Deleted Successfully!!");
+    }
 
 }

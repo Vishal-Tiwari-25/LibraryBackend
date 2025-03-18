@@ -24,7 +24,7 @@ public class UserService {
         return userRepository.save(user);
     }
     public List<User> getUsers(){
-        return userRepository.findAll();
+        return userRepository.findAllByOrderByUserIdAsc();
     }
     public Optional<User> getUser(Long id){
         return userRepository.findById(id);
@@ -34,6 +34,17 @@ public class UserService {
     }
     public List<User> getUsersByGender(String gender){
         return userRepository.findAllByGender(gender);
+    }
+
+    public void deleteUserById(Long userId){
+        Optional<User> user=userRepository.findById(userId);
+        if(user.isPresent()){
+            userRepository.deleteById(userId);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User Doesn't exist");
+        }
+
     }
     @Transactional
     public void updateUser(User user,Long userId){

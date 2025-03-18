@@ -60,6 +60,7 @@ public class BookReturnService {
 
         // 🔹 3. Check for unpaid fines
         List<Fine> unpaidFines = fineService.getUnpaidFines(userId);
+       //System.out.println(unpaidFines);
         if (!unpaidFines.isEmpty()) {
             double totalFine = unpaidFines.stream().mapToDouble(Fine::getAmount).sum();
 

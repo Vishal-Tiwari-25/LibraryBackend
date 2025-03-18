@@ -92,12 +92,13 @@ public class FineService {
                 .reason("Damage/Misuse - " + reason)
                 .isPaid(false)
                 .build();
+//        System.out.println(fine);
         return fineRepository.save(fine);
     }
 
     // 🔹 Fetch Unpaid Fines for a User
     public List<Fine> getUnpaidFines(Long userId) {
-        return fineRepository.findAllByIsPaid(false, userId);
+        return fineRepository.findAllByIsPaidAndUser_UserId(false, userId);
     }
     public void markFineAsPaid(Long fineId) {
         Fine fine = fineRepository.findById(fineId)
@@ -106,5 +107,18 @@ public class FineService {
         fine.setPaid(true);  // ✅ Mark fine as paid
         fineRepository.save(fine);
     }
-
+//    public void payFine(Long userId,Long bookId){
+//        Fine fine=fineRepository.findByUserId(userId,bookId);
+////                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fine record not found"));
+//        fine.setPaid(true);
+//        fineRepository.save(fine);
+//    }
+public void payFine(Long userId, Long bookId) {
+    Fine fine = fineRepository.findByUserIdAndBookId(userId, bookId);
+    if (fine == null) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fine record not found");
+    }
+    fine.setPaid(true);
+    fineRepository.save(fine);
+}
 }

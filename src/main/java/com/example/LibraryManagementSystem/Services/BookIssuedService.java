@@ -81,6 +81,7 @@ public class BookIssuedService {
         }
         BookIssuedId id = BookIssuedId.builder().userId(userId)
                 .bookId(bookId).build();
+        System.out.println(id);
         Optional<BookIssued> bookIssued = bookIssuedRepository.findById(id);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));

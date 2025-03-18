@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FineRepository extends JpaRepository<Fine,Long> {
 
@@ -23,9 +24,15 @@ Fine findByUserIdAndReason(@Param("userId") Long userId, @Param("reason") String
     @Query(
             value = "SELECT f from Fine f where f.isPaid=:isPaid AND f.user.userId=:userId"
     )
-    List<Fine> findAllByIsPaid(@Param("isPaid") boolean isPaid,@Param("userId") Long userId);
+    List<Fine> findAllByIsPaidAndUser_UserId(@Param("isPaid") boolean isPaid,@Param("userId") Long userId);
 
-//    // ✅ Find unpaid fines for a user
-//    @Query("SELECT f FROM Fine f WHERE f.isPaid = false AND f.user.userId = :userId")
-//    List<Fine> findUnpaidFinesByUserId(@Param("userId") Long userId);
+//    @Query(
+//            value = "SELECT f from Fine f where f.userId=:userId"
+//    )
+//    List<Fine> findAllByUserId(@Param("userId") Long userId);
+@Query("SELECT f FROM Fine f WHERE f.user.userId = :userId AND f.book.bookId = :bookId AND f.isPaid = false")
+Fine findByUserIdAndBookId(@Param("userId") Long userId, @Param("bookId") Long bookId);
+    // ✅ Find unpaid fines for a user
+    @Query("SELECT f FROM Fine f WHERE f.isPaid = false AND f.user.userId = :userId")
+    List<Fine> findUnpaidFinesByUserId(@Param("userId") Long userId);
 }

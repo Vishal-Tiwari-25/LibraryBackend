@@ -36,7 +36,7 @@ public class BookIssuedController {
 
     @PostMapping("/issue-books")
     public ResponseEntity<BookIssued> issueBook(@RequestBody BookIssuedId id){
-        return ResponseEntity.ok(bookIssuedService.issueBook(id.getBookId(),id.getUserId()));
+        return ResponseEntity.ok(bookIssuedService.issueBook(id.getUserId(),id.getBookId()));
     }
     @PostMapping("/issue-temp-books")
     public ResponseEntity<BookIssued> issueTempBook(@RequestBody BookIssuedId id){

@@ -37,6 +37,10 @@ public interface BookRepository extends JpaRepository<Book,Long> {
     @Query("SELECT b.quantity FROM Book b WHERE b.bookId = :bookId")
     int findQuantityById(@Param("bookId") Long bookId);
 
+//    @Query("SELECT b.genre, COUNT(b) FROM Book b GROUP BY b.genre")
+//    List<Object[]> getBookCountByGenre();
+
+
 //    @Query("UPDATE Book b SET b.quantity=:quantity where b.bookId=:bookId")
 //    void decrementBookQuantityById(@Param("quantity") Integer quantity,@Param("bookId") Long bookId);
 }

@@ -121,4 +121,13 @@ public void payFine(Long userId, Long bookId) {
     fine.setPaid(true);
     fineRepository.save(fine);
 }
+    public void payTotalFine(Long userId) {
+        List<Fine> fines=fineRepository.findAllByIsPaidAndUserId(false,userId);
+        for(Fine fine:fines){
+            fine.setPaid(true);
+            fineRepository.save(fine);
+        }
+        return;
+    }
+
 }

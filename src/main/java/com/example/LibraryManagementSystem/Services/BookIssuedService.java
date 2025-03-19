@@ -74,6 +74,8 @@ public class BookIssuedService {
         }
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book doesn't exist"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         //bookRepository.findQuantityById(bookId)==0
         if (book.getQuantity() == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book is out of stock");
@@ -83,8 +85,8 @@ public class BookIssuedService {
                 .bookId(bookId).build();
         System.out.println(id);
         Optional<BookIssued> bookIssued = bookIssuedRepository.findById(id);
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         if (bookIssued.isPresent()) {
             //add fine check as well.
 

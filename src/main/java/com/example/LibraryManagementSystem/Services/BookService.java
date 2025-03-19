@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookService {
@@ -105,4 +103,13 @@ public class BookService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Book not found");
         }
     }
+//    public Map<String, Long> getGenreCounts() {
+//        List<Object[]> results = bookRepository.getBookCountByGenre();
+//        Map<String, Long> genreCounts = new HashMap<>();
+//        for (Object[] row : results) {
+//            genreCounts.put((String) row[0], (Long) row[1]);
+//        }
+//        return genreCounts;
+//    }
+
 }

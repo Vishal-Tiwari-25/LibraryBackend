@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -39,6 +40,11 @@ public class BookController {
     public ResponseEntity<List<Book>> getBooksByRatings(){
         return ResponseEntity.ok(bookService.getBookByRatings());
     }
+
+//    @GetMapping("/genre-counts")
+//    public ResponseEntity<Map<String, Long>> getGenreCounts() {
+//        return ResponseEntity.ok(bookService.getGenreCounts());
+//    }
 
     //All the different Post methods
     @PostMapping("/add-book")

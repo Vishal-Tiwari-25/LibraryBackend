@@ -35,4 +35,9 @@ Fine findByUserIdAndBookId(@Param("userId") Long userId, @Param("bookId") Long b
     // ✅ Find unpaid fines for a user
     @Query("SELECT f FROM Fine f WHERE f.isPaid = false AND f.user.userId = :userId")
     List<Fine> findUnpaidFinesByUserId(@Param("userId") Long userId);
+    @Query(
+            value = "SELECT f from Fine f where f.isPaid=:isPaid AND f.user.userId=:userId"
+    )
+    List<Fine> findAllByIsPaidAndUserId(@Param("isPaid") boolean isPaid,@Param("userId") Long userId);
+
 }

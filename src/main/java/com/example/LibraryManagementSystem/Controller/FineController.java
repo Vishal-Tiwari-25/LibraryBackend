@@ -41,6 +41,12 @@ public class FineController {
         fineService.payFine(userId,bookId);
         return ResponseEntity.ok("Fine paid");
     }
+    @PostMapping("/unpaid/pay-fine/{userId}")
+    public ResponseEntity<String> payTotalFine(@PathVariable Long userId){
+        fineService.payTotalFine(userId);
+        return ResponseEntity.ok("Fine total paid");
+    }
+
 
     @PostMapping("/mark-paid/{fineId}")
     public ResponseEntity<String> markFineAsPaid(@PathVariable Long fineId) {
